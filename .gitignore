@@ -1,0 +1,4 @@
+project3.code-workspace
+pizza/__pycache__/
+orders/__pycache__/
+orders/migrations/__pycache__/
