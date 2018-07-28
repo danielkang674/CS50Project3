@@ -5,3 +5,5 @@ Web Programming with Python and JavaScript
 <code class="highlighter-rouge">pip3 install -r requirements.txt</code>
 
 Run <code class="highlighter-rouge">python manage.py runserver</code> to start up the Django application.
+
+<code class="highlighter-rouge">python manage.py makemigrations/migrate</code> to make changes to DB.

@@ -14,9 +14,21 @@ class PizzaTopping(models.Model):
   def __str__(self):
     return f"{self.topping}"
 
-class Pizza(models.Model):
+class PizzaStyle(models.Model):
   style = models.CharField(max_length=10)
-  type = models.CharField(max_length=12)
+
+  def __str__(self):
+    return f"{self.style}"
+
+class PizzaType(models.Model):
+  type = models.CharField(max_length=10)
+
+  def __str__(self):
+    return f"{self.type}"
+
+class Pizza(models.Model):
+  style = models.ForeignKey(PizzaStyle, on_delete=models.CASCADE, related_name="pizzaStyle")
+  type = models.ForeignKey(PizzaType, on_delete=models.CASCADE, related_name="pizzaType")
   size = models.ForeignKey(Size, on_delete=models.CASCADE, related_name="pizzaSize")
   toppings = models.ManyToManyField(PizzaTopping, blank=True, related_name="toppings")
 
@@ -30,8 +42,14 @@ class SubTopping(models.Model):
   def __str__(self):
     return f"{self.topping}"
 
-class Sub(models.Model):
+class SubType(models.Model):
   type = models.CharField(max_length=40)
+
+  def __str__(self):
+    return f"{self.type}"
+
+class Sub(models.Model):
+  type = models.ForeignKey(SubType, on_delete=models.CASCADE, related_name="subType")
   size = models.ForeignKey(Size, on_delete=models.CASCADE, related_name="subSize")
   toppings = models.ManyToManyField(SubTopping, blank=True, related_name="toppings")
 
@@ -53,8 +71,14 @@ class Salad(models.Model):
     # pylint: disable=E1101
     return f"{self.id} - {self.type}"
 
-class Platter(models.Model):
+class PlatterType(models.Model):
   type = models.CharField(max_length=35)
+
+  def __str__(self):
+    return f"{self.type}"
+
+class Platter(models.Model):
+  type = models.ForeignKey(PlatterType, on_delete=models.CASCADE, related_name="platterType")
   size = models.ForeignKey(Size, on_delete=models.CASCADE, related_name="platterSize")
 
   def __str__(self):
