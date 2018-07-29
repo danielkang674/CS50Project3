@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+{% block title %}
+  Pizza
+{% endblock %}
+
+{% block body %}
+  <h1>Create your pizza!</h1>
+  <form>
+    <select>
+      {% for size in sizes %}
+      <option>
+        {{size.size}}
+      </option>
+      {% endfor %}
+    </select>
+    <select>
+        {% for style in styles %}
+        <option>
+          {{style.style}}
+        </option>
+        {% endfor %}
+      </select>
+    <select>
+      {% for type in types %}
+      <option>
+        {{ type.type }}
+      </option>
+      {% endfor %}
+    </select>
+    <select multiple="multiple">
+      {% for topping in toppings %}
+      <option>
+        {{ topping.topping }}
+      </option>
+      {% endfor %}
+    </select>
+  </form>
+  {% for item in context %}
+    {{ item }}
+  {% endfor %}
+  {{ context }}
+{% endblock %}
