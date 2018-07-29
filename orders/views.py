@@ -5,6 +5,7 @@ from django.shortcuts import render
 from django.contrib.auth.models import User
 
 from .models import Pizza, Size, PizzaTopping, PizzaStyle, PizzaType
+from .forms import PizzaForm
 
 # Create your views here.
 def index(request):
@@ -49,10 +50,17 @@ def logout_view(request):
 
 def pizza_view(request):
   if request.method == "GET":
+    form = PizzaForm()
     context = {
       "sizes": Size.objects.all(),
       "styles": PizzaStyle.objects.all(),
       "types": PizzaType.objects.all(),
-      "toppings": PizzaTopping.objects.all()
+      "toppings": PizzaTopping.objects.all(),
+      "form": form
     }
     return render(request, "orders/pizza.html", context=context)
+  if request.method == "POST":
+    f = PizzaForm(request.POST)
+    new_pizza = f.save()
+    print(new_pizza)
+    return HttpResponseRedirect(reverse("pizza"))

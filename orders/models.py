@@ -34,7 +34,10 @@ class Pizza(models.Model):
 
   def __str__(self):
     # pylint: disable=E1101
-    return f"{self.id} - {self.size} {self.style} {self.type} with {self.toppings}"
+    ptoppings = ""
+    for topp in self.toppings.all().values():
+      ptoppings += " " + topp["topping"]
+    return f"{self.id} - {self.size} {self.style} {self.type} with {ptoppings}"
 
 class SubTopping(models.Model):
   topping = models.CharField(max_length=25)
